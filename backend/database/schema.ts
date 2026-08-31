@@ -7,6 +7,29 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class AuditLogSchema extends BaseModel {
+  static $columns = ['action', 'createdAt', 'failedReason', 'id', 'requestPayload', 'responsePayload', 'status', 'updatedAt', 'userId'] as const
+  $columns = AuditLogSchema.$columns
+  @column()
+  declare action: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare failedReason: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare requestPayload: any | null
+  @column()
+  declare responsePayload: any | null
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: number | null
+}
+
 export class AuthAccessTokenSchema extends BaseModel {
   static $columns = ['abilities', 'createdAt', 'expiresAt', 'hash', 'id', 'lastUsedAt', 'name', 'tokenableId', 'type', 'updatedAt'] as const
   $columns = AuthAccessTokenSchema.$columns
@@ -32,19 +55,61 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class ProjectSchema extends BaseModel {
+  static $columns = ['createdAt', 'createdBy', 'description', 'id', 'name', 'updatedAt'] as const
+  $columns = ProjectSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare createdBy: number
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class TaskSchema extends BaseModel {
+  static $columns = ['assigneeId', 'createdAt', 'description', 'id', 'priority', 'projectId', 'status', 'title', 'updatedAt'] as const
+  $columns = TaskSchema.$columns
+  @column()
+  declare assigneeId: number | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare priority: string
+  @column()
+  declare projectId: number
+  @column()
+  declare status: string
+  @column()
+  declare title: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = ['createdAt', 'email', 'id', 'name', 'password', 'role', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
   declare email: string
-  @column()
-  declare fullName: string | null
   @column({ isPrimary: true })
   declare id: number
+  @column()
+  declare name: string | null
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare role: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
