@@ -1,50 +1,35 @@
 import { defineConfig } from '@adonisjs/auth'
-import { sessionGuard, sessionUserProvider } from '@adonisjs/auth/session'
-import { tokensGuard, tokensUserProvider } from '@adonisjs/auth/access_tokens'
-import type { InferAuthenticators, InferAuthEvents, Authenticators } from '@adonisjs/auth/types'
+import { sessionUserProvider } from '@adonisjs/auth/session'
+import env from '#start/env'
+import { JwtGuard } from '../app/auth/guards/jwt.ts'
+import { Secret } from '@adonisjs/core/helpers'
+import { Authenticators, InferAuthEvents } from '@adonisjs/auth/types'
+
+const jwtConfig = {
+  secret: new Secret(env.get('JWT_SECRET')),
+}
+
+const userProvider = sessionUserProvider({
+  model: () => import('#models/user'),
+})
 
 const authConfig = defineConfig({
-  /**
-   * Default guard used when no guard is explicitly specified.
-   */
-  default: 'api',
-
+  default: 'jwt',
   guards: {
-    /**
-     * Token-based guard for stateless API authentication.
-     */
-    api: tokensGuard({
-      provider: tokensUserProvider({
-        tokens: 'accessTokens',
-        model: () => import('#models/user'),
-      }),
-    }),
-
-    /**
-     * Session-based guard for browser authentication.
-     */
-    web: sessionGuard({
-      /**
-       * Enable persistent login using remember-me tokens.
-       */
-      useRememberMeTokens: false,
-
-      provider: sessionUserProvider({
-        model: () => import('#models/user'),
-      }),
-    }),
+    jwt: (ctx) => {
+      return new JwtGuard(ctx, userProvider, jwtConfig)
+    },
   },
 })
 
 export default authConfig
 
-/**
- * Inferring types from the configured auth
- * guards.
- */
 declare module '@adonisjs/auth/types' {
-  export interface Authenticators extends InferAuthenticators<typeof authConfig> {}
+  export interface Authenticators
+    extends InferAuthenticators<typeof authConfig> { }
 }
+
 declare module '@adonisjs/core/types' {
-  interface EventsList extends InferAuthEvents<Authenticators> {}
+  interface EventsList
+    extends InferAuthEvents<Authenticators> { }
 }

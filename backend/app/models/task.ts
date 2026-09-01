@@ -11,7 +11,7 @@ export default class Task extends TaskSchema {
   declare project: BelongsTo<typeof Project>
 
   @belongsTo(() => User, {
-    foreignKey: "assignedId"
+    foreignKey: "assigneeId"
   })
   declare assignee: BelongsTo<typeof User>
 }
