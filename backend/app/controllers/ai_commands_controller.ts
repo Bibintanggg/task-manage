@@ -4,8 +4,43 @@ import { AuditLogService } from '#services/audit_log_service'
 import { aiPromptValidator } from '#validators/ai_command'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@foadonis/openapi/decorators'
 
+@ApiBearerAuth()
 export default class AiCommandsController {
+  @ApiOperation({
+    summary: 'Execute AI task command',
+    description:
+      'Convert a natural language prompt into structured task operations. ' +
+      'Only create, update, and delete task operations are allowed.',
+  })
+
+  @ApiBody({
+    type: () => aiPromptValidator,
+    description: 'Natural language task command',
+  })
+
+  @ApiResponse({
+    status: 200,
+    description: 'AI command executed successfully',
+  })
+
+  @ApiResponse({
+    status: 400,
+    description:
+      'Invalid AI command, prohibited operation, validation error, or transaction failure',
+  })
+
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+
+  @ApiResponse({
+    status: 429,
+    description:
+      'Too many AI requests. Rate limit handled using Redis',
+  })
   async command({ request, auth, response }: HttpContext) {
     const payload = await request.validateUsing(aiPromptValidator)
     const user = auth.getUserOrFail()

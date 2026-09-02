@@ -65,6 +65,7 @@
     "@adonisjs/redis": "^10.0.1",
     "@adonisjs/session": "^8.1.0",
     "@adonisjs/shield": "^9.0.0",
+    "@foadonis/openapi": "^1.1.0",
     "@google/genai": "^2.20.0",
     "@japa/api-client": "^3.2.1",
     "@tuyau/core": "^1.2.2",

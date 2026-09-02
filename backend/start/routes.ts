@@ -14,11 +14,13 @@ import ProjectsController from '#controllers/projects_controller'
 import TasksController from '#controllers/tasks_controller'
 import AiCommandsController from '#controllers/ai_commands_controller'
 import { aiThrottle } from './limiter.ts'
+import openapi from '@foadonis/openapi/services/main'
 const AuthController = () => import("#controllers/auth_controller")
 
 router.get('/', () => {
   return { hello: 'world' }
 })
+
 
 router.get('/me', async ({ auth }) => {
   const user = auth.getUserOrFail()
@@ -26,27 +28,6 @@ router.get('/me', async ({ auth }) => {
     data: user,
   }
 }).use(middleware.auth({ guards: ['jwt'] }))
-
-router
-  .group(() => {
-    router
-      .group(() => {
-        router.post('signup', [controllers.NewAccount, 'store'])
-        router.post('login', [controllers.AccessTokens, 'store'])
-      })
-      .prefix('auth')
-      .as('auth')
-
-    router
-      .group(() => {
-        router.get('profile', [controllers.Profile, 'show'])
-        router.post('logout', [controllers.AccessTokens, 'destroy'])
-      })
-      .prefix('account')
-      .as('profile')
-      .use(middleware.auth())
-  })
-  .prefix('/api/v1')
 
 router.post('/register', [AuthController, 'register'])
 router.post('/login', [AuthController, 'login'])
@@ -70,3 +51,5 @@ router.delete('/tasks/:id', [TasksController, 'destroy']).use(middleware.auth())
 router.get('/projects/:id/tasks', [TasksController, 'getTasksByProject']).use(middleware.auth())
 
 router.post('/ai/command', [AiCommandsController, 'command']).use(middleware.auth()).use(aiThrottle)
+
+openapi.registerRoutes()

@@ -4,10 +4,6 @@ type ParamValue = string | number | bigint | boolean
 
 export type ScannedRoutes = {
   ALL: {
-    'auth.new_account.store': { paramsTuple?: []; params?: {} }
-    'auth.access_tokens.store': { paramsTuple?: []; params?: {} }
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
-    'profile.access_tokens.destroy': { paramsTuple?: []; params?: {} }
     'auth.register': { paramsTuple?: []; params?: {} }
     'auth.login': { paramsTuple?: []; params?: {} }
     'projects.get_projects': { paramsTuple?: []; params?: {} }
@@ -21,25 +17,29 @@ export type ScannedRoutes = {
     'tasks.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tasks.get_tasks_by_project': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'ai_commands.command': { paramsTuple?: []; params?: {} }
+    'openapi.html': { paramsTuple?: []; params?: {} }
+    'openapi.json': { paramsTuple?: []; params?: {} }
+    'openapi.yaml': { paramsTuple?: []; params?: {} }
   }
   GET: {
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
     'projects.get_projects': { paramsTuple?: []; params?: {} }
     'projects.get_projects_by_id': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tasks.get_tasks_by_id': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tasks.get_tasks_by_project': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'openapi.html': { paramsTuple?: []; params?: {} }
+    'openapi.json': { paramsTuple?: []; params?: {} }
+    'openapi.yaml': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
     'projects.get_projects': { paramsTuple?: []; params?: {} }
     'projects.get_projects_by_id': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tasks.get_tasks_by_id': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tasks.get_tasks_by_project': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'openapi.html': { paramsTuple?: []; params?: {} }
+    'openapi.json': { paramsTuple?: []; params?: {} }
+    'openapi.yaml': { paramsTuple?: []; params?: {} }
   }
   POST: {
-    'auth.new_account.store': { paramsTuple?: []; params?: {} }
-    'auth.access_tokens.store': { paramsTuple?: []; params?: {} }
-    'profile.access_tokens.destroy': { paramsTuple?: []; params?: {} }
     'auth.register': { paramsTuple?: []; params?: {} }
     'auth.login': { paramsTuple?: []; params?: {} }
     'projects.create_project': { paramsTuple?: []; params?: {} }
