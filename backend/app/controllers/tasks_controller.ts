@@ -55,7 +55,7 @@ export default class TasksController {
     })
   }
 
-  async getTasksByProject({ response, params}: HttpContext) {
+  async getTasksByProject({ response, params }: HttpContext) {
     const project = await Project.findOrFail(params.id)
     const tasks = await Task.query().where('projectId', project.id)
     return response.ok({

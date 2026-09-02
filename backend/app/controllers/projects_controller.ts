@@ -1,5 +1,4 @@
 import Project from '#models/project'
-import User from '#models/user'
 import { createProjectValidator, updateProjectValidator } from '#validators/project'
 import type { HttpContext } from '@adonisjs/core/http'
 

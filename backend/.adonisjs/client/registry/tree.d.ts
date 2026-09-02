@@ -28,10 +28,13 @@ export interface ApiDefinition {
     destroy: typeof routes['projects.destroy']
   }
   tasks: {
-    getTasks: typeof routes['tasks.get_tasks']
     createTask: typeof routes['tasks.create_task']
     getTasksById: typeof routes['tasks.get_tasks_by_id']
     updateTaskById: typeof routes['tasks.update_task_by_id']
     destroy: typeof routes['tasks.destroy']
+    getTasksByProject: typeof routes['tasks.get_tasks_by_project']
+  }
+  aiCommands: {
+    command: typeof routes['ai_commands.command']
   }
 }

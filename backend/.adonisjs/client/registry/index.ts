@@ -72,12 +72,6 @@ const routes = {
     tokens: [{"old":"/projects/:id","type":0,"val":"projects","end":""},{"old":"/projects/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['projects.destroy']['types'],
   },
-  'tasks.get_tasks': {
-    methods: ["GET","HEAD"],
-    pattern: '/projects/:id/tasks',
-    tokens: [{"old":"/projects/:id/tasks","type":0,"val":"projects","end":""},{"old":"/projects/:id/tasks","type":1,"val":"id","end":""},{"old":"/projects/:id/tasks","type":0,"val":"tasks","end":""}],
-    types: placeholder as Registry['tasks.get_tasks']['types'],
-  },
   'tasks.create_task': {
     methods: ["POST"],
     pattern: '/projects/:id/tasks',
@@ -101,6 +95,18 @@ const routes = {
     pattern: '/tasks/:id',
     tokens: [{"old":"/tasks/:id","type":0,"val":"tasks","end":""},{"old":"/tasks/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['tasks.destroy']['types'],
+  },
+  'tasks.get_tasks_by_project': {
+    methods: ["GET","HEAD"],
+    pattern: '/projects/:id/tasks',
+    tokens: [{"old":"/projects/:id/tasks","type":0,"val":"projects","end":""},{"old":"/projects/:id/tasks","type":1,"val":"id","end":""},{"old":"/projects/:id/tasks","type":0,"val":"tasks","end":""}],
+    types: placeholder as Registry['tasks.get_tasks_by_project']['types'],
+  },
+  'ai_commands.command': {
+    methods: ["POST"],
+    pattern: '/ai/command',
+    tokens: [{"old":"/ai/command","type":0,"val":"ai","end":""},{"old":"/ai/command","type":0,"val":"command","end":""}],
+    types: placeholder as Registry['ai_commands.command']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 

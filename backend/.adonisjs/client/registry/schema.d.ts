@@ -139,18 +139,6 @@ export interface Registry {
       errorResponse: unknown
     }
   }
-  'tasks.get_tasks': {
-    methods: ["GET","HEAD"]
-    pattern: '/projects/:id/tasks'
-    types: {
-      body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: {}
-      response: unknown
-      errorResponse: unknown
-    }
-  }
   'tasks.create_task': {
     methods: ["POST"]
     pattern: '/projects/:id/tasks'
@@ -194,6 +182,30 @@ export interface Registry {
       body: {}
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'tasks.get_tasks_by_project': {
+    methods: ["GET","HEAD"]
+    pattern: '/projects/:id/tasks'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
+  'ai_commands.command': {
+    methods: ["POST"]
+    pattern: '/ai/command'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
       query: {}
       response: unknown
       errorResponse: unknown
